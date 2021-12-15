@@ -100,7 +100,7 @@ func start() {
 			if conn == nil {
 				break
 			}
-
+			// 读，并利用时间戳记录往返时间
 			if err := binary.Read(conn, binary.BigEndian, &nano); err != nil {
 				log.Printf("failed to read %v", err)
 				if err := epoller.Remove(conn); err != nil {

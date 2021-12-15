@@ -49,6 +49,17 @@ client sends the next request only when it has received the response. it has not
 |prefork| 444415 | 1.5s|
 |workerpool| 190022 | 0.3s|
 
+实际上，由于 goroutine-per-conn 在 server 的 response 手段上使用了 mock io 的方式，与其他模型是不一样的。
+
+单位：throughputs(100,000 tps), latency(s)
+
+![chart](chart.svg)
+
+可以见得，最后三个的性能最好，其中：
+
+- multiple epoll sever 是一个折中的选择
+- prefork 相对吞吐量最大，但是延迟也较大 
+- workpool 吞吐量比 multiple epoll sever 略小（差），但是延迟也较小（好）
 
 **中文介绍**:
 
