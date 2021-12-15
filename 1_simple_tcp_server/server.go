@@ -51,6 +51,8 @@ func main() {
 	}
 }
 
+// Discard 是一个 io.Writer 接口，调用它的 Write 方法将不做任何事情
+// 连 echo 的步骤都省略了
 func handleConn(conn net.Conn) {
 	io.Copy(ioutil.Discard, conn)
 }
