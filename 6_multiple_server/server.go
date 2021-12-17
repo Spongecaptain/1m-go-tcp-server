@@ -16,12 +16,22 @@ import (
 )
 
 var (
+	// C 是
 	c = flag.Int("c", 10, "concurrency")
 )
 
 var (
 	opsRate = metrics.NewRegisteredMeter("ops", nil)
 )
+
+/*
+ 这里相当于开了 c 对 goroutine，共 2*c 个 goroutine
+ 对于每对 goroutine，有：
+ 第一个 goroutine 负责监听 server socket，accept 新连接，注册到 epoll 中
+ 第二个 goroutine 负责 epoll_wait，然后执行 I/O logic 逻辑
+
+ 由于 Go 中的 goroutine 比较轻量，开有限个 goroutine 的开销总不会很大（有限个指的是不会随着 connection 增多而需要提高 goroutine 个数）
+*/
 
 func main() {
 	flag.Parse()
@@ -43,6 +53,7 @@ func main() {
 }
 
 func startEpoll() {
+	// 使用 reuseport 库启动多个 goroutine 监听同一个端口，这个特性在较新的 Linux 内核上已经支持，内核会负责负载均衡
 	ln, err := reuseport.Listen("tcp", ":8972")
 	if err != nil {
 		panic(err)

@@ -67,6 +67,7 @@ func main() {
 
 func handleConn(conn net.Conn) {
 	for {
+		// 通过 sleep 来 mock I/O 操作的阻塞操作
 		time.Sleep(*iotime)
 		_, err := io.CopyN(conn, conn, 8)
 		if err != nil {

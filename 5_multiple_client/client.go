@@ -24,7 +24,8 @@ var (
 	opsRate = metrics.NewRegisteredTimer("ops", nil)
 )
 
-// client采用epoll方式，但是会多线程的处理
+// client采用epoll方式，但是会多协程的处理
+// 不如看 6_multiple_server 中的 server.go 逻辑，它与当前文件的实现逻辑是很相似的
 func main() {
 	flag.Parse()
 

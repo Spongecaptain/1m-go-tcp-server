@@ -18,7 +18,7 @@ import (
 var (
 	c      = flag.Int("c", 10, "concurrency")
 	iotime = flag.Duration("io", time.Duration(10*time.Millisecond), "sleep time")
-) 
+)
 
 var (
 	opsRate = metrics.NewRegisteredMeter("ops", nil)
@@ -86,7 +86,7 @@ func start(epoller *epoll) {
 			if conn == nil {
 				break
 			}
-
+			// 通过 sleep 来 mock I/O 操作的阻塞操作
 			time.Sleep(*iotime)
 			_, err = io.CopyN(conn, conn, 8)
 			if err != nil {

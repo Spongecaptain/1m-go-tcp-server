@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// 计算密集型：挖矿算法，计算哈希值，如果哈希值的前 12bit 都是 0 的话算挖矿成功
 func pow(targetBits int) *big.Int {
 	target := big.NewInt(1)
 	target.Lsh(target, uint(256-targetBits))
