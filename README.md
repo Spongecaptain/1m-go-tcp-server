@@ -1,3 +1,8 @@
+> what update:
+>
+> - 对源代码做了不少的详细注释，希望能为初学者提供更好的阅读体验
+> - 添加了 chart of throughputs
+
 # Benchmark for implementation of servers that support 1m connections
 
 inspired by [handling 1M websockets connections in Go ](https://github.com/eranyanay/1m-go-websockets)
